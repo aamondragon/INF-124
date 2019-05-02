@@ -29,6 +29,28 @@
     ## Connect to DB ## 
     $pdo = connect();
     
+    ## Retrieve product info from DB and display it ##
+    $stmt = $pdo->query("SELECT * FROM Products");
+    $counter = 0;
+    while ( $row = $stmt->fetch(PDO::FETCH_ASSOC) ) {
+        if($counter % 3 == 0){
+            echo '</tr>';
+            echo '<tr>';
+        }
+        echo '<td>';
+        echo '<img class="zoom" src="'.$row[imageLocation].'" alt="Product Picture">';
+        echo '<p style="padding-top:10px">Price: $'.$row[productPrice].'</p>';
+        echo '<p> MFR: '.$row['manufacturer'].'<p>';
+        echo '<p>Type: '.$row[productType].'</p>';
+        echo '</td>';
+        ++$counter;
+    }
+    
+    echo '</tr>';
+    
+    
+    mysql_close($pdo);
+    
     echo '          </table>
                 </div>
         </body>
