@@ -1,7 +1,3 @@
-<style>
-    <?php include 'css/styles.css'; ?>
-</style>
-
 <?php
 
 $ourTeam = array("Angel Mondragon", "Armando Torres", "Boomi (Team Mascot)");
@@ -18,6 +14,7 @@ echo '<!DOCTYPE html>
             <title> Gamers Haven - About Us </title>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="stylesheet" href="css/styles.css">
             <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
     </head>
     <body>
@@ -74,4 +71,3 @@ echo '                      </table>
                 </div>
         </body>
         </html>';
-?>

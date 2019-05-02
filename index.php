@@ -1,13 +1,10 @@
-<style>
-    <?php include 'css/styles.css'; ?>
-</style>
-
 <!DOCTYPE html>
         <html>
         <head>
                 <title> Gamers Haven </title>
                 <meta charset="UTF-8">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <link rel="stylesheet" href="css/styles.css">
                 <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
         </head>
         <body>

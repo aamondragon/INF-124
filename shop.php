@@ -1,7 +1,3 @@
-<style>
-    <?php include 'css/styles.css'; ?>
-</style>
-
 <?php
     require_once "dbconnect.php";
 
@@ -16,9 +12,9 @@
         </head>
         <body">	
                 <ul>
-                        <li><a class="notActive" href="index.html">Home</a></li>
+                        <li><a class="notActive" href="index.php">Home</a></li>
                         <li><a id="shop" class="active" href="javascript:void(0)">Shop</a></li>
-                        <li><a class="notActive" href="about.html">Our Story</a></li>
+                        <li><a class="notActive" href="about.php">Our Story</a></li>
                         <li style="float:right"><a class="notActive" href="mailto:aamondra@uci.edu?Subject=Gamers%20Haven%20Inquiry" style="background-color:#FD0000">Contact Us</a></li>
                 </ul>
 
@@ -38,21 +34,20 @@
             echo '<tr>';
         }
         echo '<td>';
-        echo '<img class="zoom" src="'.$row[imageLocation].'" alt="Product Picture">';
+        echo '<a href="productPage.php?productID='.$row[productID].'">';
+        echo '<img id='.$row[productID].' class="zoom" src="'.$row[imageLocation].'" alt="'.$row[productName].' Picture" onClick="loadProductPage(this.id)">';
+        echo '</a>';
         echo '<p style="padding-top:10px">Price: $'.$row[productPrice].'</p>';
-        echo '<p> MFR: '.$row['manufacturer'].'<p>';
+        echo '<p> Mfr.: '.$row[manufacturer].'<p>';
         echo '<p>Type: '.$row[productType].'</p>';
         echo '</td>';
         ++$counter;
     }
     
     echo '</tr>';
-    
-    
     mysql_close($pdo);
     
     echo '          </table>
                 </div>
         </body>
         </html>';
-?>
