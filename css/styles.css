@@ -106,12 +106,16 @@ table{
 	margin-left: auto;
     margin-right: auto;
 	margin-bottom: 3%;
-	width: 90em;
+	width: 80em;
 	padding: 20px;
 	color: #FEFBC8;
 	font-size: 1vw;
 	padding: 0px 20px 0px 20px;
 	border-spacing: 5em 2em;
+}
+
+td {
+	align: left;
 }
 
 .zoom {
