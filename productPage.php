@@ -56,7 +56,7 @@
         array_push($tags, $row[tag]);
     }
     
-                    echo 'Tags: '.join(", ", $tags);
+
                 echo '</td>';
             echo '</tr>';
     mysql_close($pdo);
@@ -74,13 +74,13 @@
                 <p class="formText"> Checkout </p>
             </div>
 
-            <form id="purchaseForm" class="w3-container" action="confirmation.html" onsubmit="return sendEmailConfirmation()">
+            <form id="purchaseForm" class="w3-container" action="confirmation.php" method="get">
                 <div class="w3-section">
-                        <p class="formText"> Product Infomation </p>
+                        <p class="formText"> Product Information </p>
                         <input class="w3-input w3-border w3-margin-bottom productID" type="text" placeholder="Product ID" name="id" style="display: inline-block; width: 25%" required>
                         <input class="w3-input w3-border w3-margin-bottom" type="number" min="1" placeholder="Quantity" name="quanity" style="display: inline-block; width: 25%" required>
                         <br>
-                        <p class="formText"> Personal Infomation </p>
+                        <p class="formText"> Personal Information </p>
                         <input class="w3-input w3-border w3-margin-bottom names" type="text" placeholder="First Name" name="fName" pattern="[A-Za-z]{2,}" required>
                         <input class="w3-input w3-border w3-margin-bottom names" type="text" placeholder="Last Name" name="lName" pattern="[A-Za-z]{2,}" required>
                         <input class="w3-input w3-border w3-margin-bottom" type="tel" placeholder="Phone Number (e,i: XXX-XXX-XXX)" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
@@ -116,7 +116,7 @@
                         <input id="shippingType" type="radio" name="shipping" value="Overnight" required>
                         <label class="formText">Overnight - $9.59</label> <br>					
                         <input id="shippingType" type="radio" name="shipping" value="Regular" checked required>
-                        <label class="formText">9-12 Bussiness Days - $2.59</label> <br>
+                        <label class="formText">9-12 Business Days - $2.59</label> <br>
                     <button class="w3-button w3-wide w3-block w3-green w3-section w3-padding" type="submit" style="width: 50%; margin: 0 25%; font-size:1.10vw">CONFIRM PURCHASE</button>
                 </div>
             </form>
