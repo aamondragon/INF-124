@@ -69,6 +69,8 @@
                     echo '<br><img class="chosenItem" id='.$chosenItem[productID].' class="zoom" src="'.$chosenItem[imageLocation].'" alt="'.$chosenItem[productName].' Picture">';
                     echo '<p class="aboutUsContent"> Purchase Order#: '.$uniqueID.'</p>';
                     echo '<p class="aboutUsContent"> Product ID#: '.$_GET['id'].'</p>';
+                    echo '<p class="aboutUsContent"> Product Name: '.$chosenItem[productName].'</p>';
+                    echo '<p class="aboutUsContent"> Product Price: '.$chosenItem[productPrice].'</p>';
                     echo '<p class="aboutUsContent"> Quantity: '.$_GET['quanity'].'</p>';
                     echo '<p class="aboutUsContent"> Name: '.$_GET['fName']." ".$_GET['lName'].'</p>';
                     echo '<p class="aboutUsContent"> Phone Number#: '.$_GET['phone'].'</p>';
