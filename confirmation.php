@@ -75,13 +75,11 @@
                     echo '<p class="aboutUsContent"> E-mail Address: '.$_GET['email'].'</p>';
                     echo '<p class="aboutUsContent"> Address: '.$_GET['streetAddr'].", ".$_GET['city'].", ".$_GET['state'] .", ".$_GET['zipCode'].'</p>';
                     echo '<p class="aboutUsContent"> Card Holder Name: '.$_GET['cardHolderName'].'</p>';
-                    echo '<p class="aboutUsContent"> Card Number: '.$_GET['cardNumber'].'</p>';
-                    echo '<p class="aboutUsContent"> Expiration Month: '.$_GET['expMonth'].'</p>';
-                    echo '<p class="aboutUsContent"> Expiration Year: '.$_GET['expYear'].'</p>';
-                    echo '<p class="aboutUsContent"> CVV: '.$_GET['cvv'].'</p>';
+                    $hiddenCC = split('-', $_GET['cardNumber']);
+                    echo '<p class="aboutUsContent"> Credit/Debit Card: xxxx-xxxx-xxxx-'.$hiddenCC[3].'</p>';
                     echo '<p class="aboutUsContent"> Shipping Method: '.$_GET['shipping'].'</p>';
                 echo '</div>';
-                echo '<br><a href="./shop.php"><button type="button" class="button" .style.display="block">Back to Shopping</button></a>';
+                echo '<br><a href="./shop.php"><button type="button" class="button" style="margin: 2% 40% 4% 40%; font-size:1.15vw">Back to Shopping</button></a>';
         echo '</body>';
     
     mysql_close($pdo);

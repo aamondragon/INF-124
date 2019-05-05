@@ -5,6 +5,9 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="css/styles.css">
+        <script type="text/javascript" src="js/getCityState.js"></script>
+        <script type="text/javascript" src="js/updateOrderSummary.js"></script>
+        <script type="text/javascript" src="js/AJAX.js"></script>
         <link href="https://www.w3schools.com/w3css/4/w3.css" rel="stylesheet" >
         <link href="https://fonts.googleapis.com/css?family=Press+Start+2P" rel="stylesheet">
 </head>
@@ -23,6 +26,15 @@
     <?php
     require_once "dbconnect.php";
     $parameter = $_GET["productID"];
+    
+    ## Variables to change Order Summary ##
+    #
+    $productPrice;
+    $productID;
+    #
+    #######################################
+    
+    
     ## Connect to DB ## 
     $pdo = connect();
     
@@ -36,6 +48,8 @@
     $counter = 0;
     while ( $row = $stmt->fetch(PDO::FETCH_ASSOC) ) {
         if($counter < 1){
+            $productPrice = $row[productPrice];
+            $productID = $row[productID];
             echo '<tr>';
                 echo '<td>';
                     echo '<img class="zoom" src="'.$row[imageLocation].'" alt="Product Picture">';
@@ -56,7 +70,7 @@
         array_push($tags, $row[tag]);
     }
     
-
+                    echo 'Tags: '.join(", ", $tags);
                 echo '</td>';
             echo '</tr>';
     mysql_close($pdo);
@@ -74,11 +88,11 @@
                 <p class="formText"> Checkout </p>
             </div>
 
-            <form id="purchaseForm" class="w3-container" action="confirmation.php" method="get">
+            <form id="purchaseForm" class="w3-container" action="confirmation.php" onsubmit="return sendEmailConfirmation()">
                 <div class="w3-section">
                         <p class="formText"> Product Information </p>
-                        <input class="w3-input w3-border w3-margin-bottom productID" type="text" placeholder="Product ID" name="id" style="display: inline-block; width: 25%" required>
-                        <input class="w3-input w3-border w3-margin-bottom" type="number" min="1" placeholder="Quantity" name="quanity" style="display: inline-block; width: 25%" required>
+                        <input class="w3-input w3-border w3-margin-bottom productID" type="text" placeholder="Product ID" name="id" style="display: inline-block; width: 25%" value="<?php echo $productID ?>" readonly>
+                        <input class="w3-input w3-border w3-margin-bottom" type="number" min="1" placeholder="Quantity" name="quanity" style="display: inline-block; width: 25%" onblur="getInitialPrice(this.value, <?php echo $productPrice ?>)" required>
                         <br>
                         <p class="formText"> Personal Information </p>
                         <input class="w3-input w3-border w3-margin-bottom names" type="text" placeholder="First Name" name="fName" pattern="[A-Za-z]{2,}" required>
@@ -88,9 +102,9 @@
                         <br>
                         <p class="formText"> Shipping Address </p>
                         <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Street Address" name="streetAddr" pattern="[A-Za-z0-9\s]{2,}" required>
-                        <input class="w3-input w3-border w3-margin-bottom names" type="text" placeholder="City" name="city" pattern="[A-Za-z]{2,}" required>
-                        <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="State (e,i: CA)" pattern="[A-Z]{2}" name="state" required>
-                        <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Postal Code (e,i: 93030)" name="zipCode" pattern="[0-9]{5}" required>
+                        <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Postal Code (e,i: 93030)" name="zipCode" pattern="[0-9]{5}" onblur="runAJAX(this.value)" required>
+                        <input id="city" class="w3-input w3-border w3-margin-bottom names" type="text" placeholder="City" name="city" pattern="[A-Za-z\s]{2,}" required>
+                        <input id="state" class="w3-input w3-border w3-margin-bottom" type="text" placeholder="State (e,i: CA)" pattern="[A-Z]{2}" name="state" required>
                         <br>
                         <p class="formText"> Payment Information </p>
                         <input class="w3-input w3-border w3-margin-bottom names" type="text" name="cardHolderName" placeholder="Name on Card" pattern="[A-Za-z\s]{2,}" required>
@@ -112,12 +126,21 @@
                         <input class="w3-input w3-border w3-margin-bottom" type="text" name="expYear" placeholder="Exp Year (e,i: 2019)" pattern="[0-9]{4}" required>
                         <input class="w3-input w3-border w3-margin-bottom" type="text" name="cvv" placeholder="CVV" pattern="[0-9]{3}" required>
                         <br>
-                        <p class="formText"> Shipping Type </p>	
-                        <input id="shippingType" type="radio" name="shipping" value="Overnight" required>
-                        <label class="formText">Overnight - $9.59</label> <br>					
-                        <input id="shippingType" type="radio" name="shipping" value="Regular" checked required>
-                        <label class="formText">9-12 Business Days - $2.59</label> <br>
-                    <button class="w3-button w3-wide w3-block w3-green w3-section w3-padding" type="submit" style="width: 50%; margin: 0 25%; font-size:1.10vw">CONFIRM PURCHASE</button>
+                        <div style="text-align: right">
+                            <p class="formText"> Shipping Type </p>
+                            <p class="formText"> ------------- </p>
+                            <input id="shippingType" type="radio" name="shipping" value="Overnight" required>
+                            <label class="formText">Overnight - $9.59</label> <br>					
+                            <input id="shippingType" type="radio" name="shipping" value="Regular" checked required>
+                            <label class="formText">9-12 Business Days - $2.59</label> <br>
+                            <br><br>
+                            <p class="formText"> ORDER SUMMARY </p>
+                            <p class="formText"> ------------- </p>
+                            <p id="priceBeforeTax" class="formText">Base Price: --</p>
+                            <p id="taxRate" class="formText">         Tax Rate: --</p>
+                            <br>
+                        </div>
+                    <button type="submit" class="button" style="width: 50%; margin: 2% 25% 4% 25%; font-size:1.15vw">CONFIRM PURCHASE</button>
                 </div>
             </form>
         </div>
