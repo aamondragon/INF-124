@@ -1,8 +1,9 @@
 Angel Mondragon ID# 56723595
 Armando Torres ID# 27586137
 
-Website URL: 
+Website URL: http://centaurus-8.ics.uci.edu:1032/
 
+Database URL: http://centaurus-8.ics.uci.edu:1032/phpMyAdmin/
 Database Password: fern1
 
 
@@ -31,4 +32,5 @@ Grading Requirements (where to find):
 	1) shop.php and productPage.php
         2) productPage.php (specifies the GET method) and confirmation.php (uses GET method to store purchase info)
         3) confirmation.php (displays dynamic confirmation page)
-        4) 
+        4) AJAX.php (file containing main call used in HTML onblur ), getCityState.php (Contains AJAX call that reads the zip_codes.csv), 
+		and getTaxRate.php (Conatains AJAX call that reads tax_rates.csv)
