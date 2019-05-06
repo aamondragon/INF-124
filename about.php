@@ -4,7 +4,7 @@ $ourTeam = array("Angel Mondragon", "Armando Torres", "Boomi (Team Mascot)");
 $teamBio = array(   'I grew up playing video games and for me they were always my way of escaping the world when things got rough. Video games
                     created an immersive universe where I could forget about everythig else and just be myself. Thats why I joined Gamers Haven, 
                     I want to be able to help provide that experience for others by introducding them to video games.',
-                    "Yo what's up! Im' here for the free video games, and for the Boomi.", 
+                    "Yo what's up! Im' here for the free video games, and for Boomi.", 
                     'I am a cat, but I love video games as well, gaming consoles in particular. They are nice and warm and the prefect place for
                     me to take a nap.');
 
